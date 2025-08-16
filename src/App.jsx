@@ -34,7 +34,7 @@ function App() {
   return (
     <>
       <div
-        className="flex sm:flex-row flex-col sm:h-screen text-white transition-all duration-500"
+        className="flex sm:flex-row flex-col sm:h-screen text-white text-lg transition-all duration-500"
         style={{
           background: `linear-gradient(to right, ${
             currentSong ? currentSong.accent : "#242424"
