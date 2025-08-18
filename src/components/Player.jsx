@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const Player = ({ currentSong }) => {
+const Player = ({ currentSong, songs, setCurrentSong }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [showVolume, setShowVolume] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (currentSong && audioRef.current) {
@@ -23,6 +26,32 @@ const Player = ({ currentSong }) => {
     setIsPlaying(!isPlaying);
   };
 
+  const skipForward = () => {
+    if (!songs || songs.length === 0) return;
+    const currentIndex = songs.findIndex((s) => s.id === currentSong.id);
+    const nextIndex = (currentIndex + 1) % songs.length;
+    setCurrentSong(songs[nextIndex]);
+  };
+
+  const skipBackward = () => {
+    if (!songs || songs.length === 0) return;
+    const currentIndex = songs.findIndex((s) => s.id === currentSong.id);
+    const prevIndex = (currentIndex - 1 + songs.length) % songs.length;
+    setCurrentSong(songs[prevIndex]);
+  };
+
+  const handleVolumeChange = (e) => {
+    if (audioRef.current) {
+      if (audioRef.current.volume > 0) {
+        audioRef.current.volume = 0; // mute
+        setVolume(0);
+      } else {
+        audioRef.current.volume = 1; // unmute (or last volume you want)
+        setVolume(1);
+      }
+    }
+  };
+
   const handleTimeUpdate = () => {
     const currentTime = audioRef.current.currentTime;
     setProgress((currentTime / audioRef.current.duration) * 100);
@@ -33,6 +62,7 @@ const Player = ({ currentSong }) => {
   };
 
   const handleSeek = (e) => {
+    console.log("audioRef - ", audioRef);
     const newTime = (e.target.value / 100) * audioRef.current.duration;
     audioRef.current.currentTime = newTime;
     setProgress(e.target.value);
@@ -46,34 +76,80 @@ const Player = ({ currentSong }) => {
     );
   }
   return (
-    <div className="w-full max-w-md text-white p-2 flex flex-col items-center">
-      <div className="text-left mb-4 w-full">
-        <h2 className="text-4xl font-700">{currentSong.name}</h2>
+    <div className="w-full max-w-md h-full max-h-md text-white p-6 flex flex-col items-center justify-center">
+      <div className="text-left mb-8 w-full">
+        <h2 className="text-4xl mb-2 font-700">{currentSong.name}</h2>
         <p className="text-white/60 text-base">{currentSong.artist}</p>
       </div>
 
       <img
         src={`https://cms.samespace.com/assets/${currentSong.cover}`}
         alt={currentSong.name}
-        className="w-120 h-120 rounded-lg shadow-xl mb-4 object-cover"
+        className="w-100 h-100 rounded-lg shadow-xl mb-6 object-cover"
       />
 
-      <input
+      {/* <input
         type="range"
         value={progress}
         onChange={handleSeek}
-        className="w-full mt-4 accent-white cursor-pointer"
-      />
+        className="w-full accent-white cursor-pointer no-thumb"
+      /> */}
 
-      <div className="flex items-center justify-between w-full mt-6 ">
-        <button>
-          <img src="src\assets\more-options.svg" alt="More" className="" />
-        </button>
-        <div className="flex items-center w-1/3 justify-between">
-          <button>
-            <img src="src\assets\skipback.svg" alt="Skip Back" />
+      <div
+        className="w-full h-2 bg-gray-600 rounded-lg cursor-pointer relative"
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const newProgress = clickX / rect.width;
+          handleSeek({ target: { value: newProgress * 100 } }); // simulate range change
+        }}
+      >
+        {/* Filled part */}
+        <div
+          className="h-2 bg-white rounded-lg"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+
+      <div className="flex items-center justify-between w-full mt-8 ">
+        <div className="relative">
+          <button
+            onClick={() => setOpen(!open)}
+            className="cursor-pointer focus:outline-none focus-visible:outline-none"
+          >
+            <img src="src\assets\more-options.svg" alt="More" className="" />
           </button>
-          <button onClick={togglePlay} className="shadow-lg cursor-pointer">
+
+          {open && (
+            <div className="absolute right-14 bottom-3 mt-2 w-15 bg-white/10 text-white rounded-lg shadow-lg">
+              <ul className="flex flex-col">
+                <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
+                  <img src="src\assets\heart.png" alt="" />
+                </li>
+                <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
+                  ⬇️
+                </li>
+                <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
+                  🔗 
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center w-1/3 justify-between">
+          <button className="cursor-pointer focus:outline-none focus-visible:outline-none">
+            <img
+              src="src\assets\skipback.svg"
+              alt="Skip Back"
+              onClick={skipBackward}
+            />
+          </button>
+
+          <button
+            onClick={togglePlay}
+            className="shadow-lg cursor-pointer focus:outline-none focus-visible:outline-none"
+          >
             {isPlaying ? (
               <img
                 src="src/assets/pause.svg"
@@ -84,20 +160,39 @@ const Player = ({ currentSong }) => {
               <img src="src/assets/play.svg" alt="Play" className="w-12 h-12" />
             )}
           </button>
-          <button>
-            <img src="src/assets/skipforward.svg" alt="Skip Forward" />
+
+          <button className="cursor-pointer focus:outline-none focus-visible:outline-none">
+            <img
+              src="src/assets/skipforward.svg"
+              alt="Skip Forward"
+              onClick={skipForward}
+            />
           </button>
         </div>
-        <button>
-          <img src="src\assets\volume.svg" alt="Volume" />
-        </button>
+
+        <div className="relative">
+          <button
+            onClick={handleVolumeChange}
+            className="text-2xl cursor-pointer focus:outline-none focus-visible:outline-none"
+          >
+            {volume === 0 ? (
+              <div className="bg-white/10 p-3 rounded-full">
+                <img src="src/assets/mute.png" alt="Volume" width={24.1} />
+              </div>
+            ) : (
+              <img src="src/assets/volume.svg" alt="Volume" />
+            )}
+          </button>
+        </div>
       </div>
 
       <audio
         ref={audioRef}
         src={currentSong.url}
+        volume={volume}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onEnded={() => setIsPlaying(false)}
       />
     </div>
   );

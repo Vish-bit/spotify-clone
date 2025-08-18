@@ -28,7 +28,7 @@ const SongsList = ({ filteredTracks, setCurrentSong }) => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto pt-6">
+    <div className="flex-1 pt-6 overflow-y-auto no-scrollbar">
       {filteredTracks.length === 0 ? (
         <p className="p-4 text-gray-400">No songs found.</p>
       ) : (

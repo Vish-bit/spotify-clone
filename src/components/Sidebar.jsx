@@ -12,7 +12,7 @@ const Sidebar = ({ activeTab, setActiveTab, songs, setCurrentSong }) => {
   );
 
   return (
-    <div className="sm:w-1/3 w-full text-white sm:h-screen flex flex-col px-6">
+    <div className="md:w-1/3 w-full text-white flex flex-col px-6">
 
       <div className="flex sm:justify-left py-4">
         <button

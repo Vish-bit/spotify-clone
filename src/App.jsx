@@ -34,7 +34,7 @@ function App() {
   return (
     <>
       <div
-        className="flex sm:flex-row flex-col sm:h-screen text-white text-lg transition-all duration-500"
+        className="flex md:flex-row flex-col md:h-screen text-white text-lg transition-all duration-500"
         style={{
           background: `linear-gradient(to right, ${
             currentSong ? currentSong.accent : "#242424"
@@ -43,9 +43,9 @@ function App() {
       >
         <Logo />
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} songs={filteredTracks} setCurrentSong={setCurrentSong}/>
-        <div className="flex-1 flex flex-col items-center justify-center p-6">
+        <div className="flex flex-1 items-center justify-center p-6">
           {filteredTracks.length > 0 ? (
-            <Player currentSong={currentSong} />
+            <Player currentSong={currentSong} songs={filteredTracks} setCurrentSong={setCurrentSong}/>
           ) : (
             <p className="text-gray-400">Loading songs...</p>
           )}
