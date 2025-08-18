@@ -124,13 +124,13 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
             <div className="absolute right-14 bottom-3 mt-2 w-15 bg-white/10 text-white rounded-lg shadow-lg">
               <ul className="flex flex-col">
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  <img src="src\assets\heart.png" alt="" />
+                  <img src="src\assets\heart.png" alt=""  width={24} />
                 </li>
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  ⬇️
+                  <img src="src\assets\download.png" alt="" width={24} />
                 </li>
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  🔗 
+                  <img src="src\assets\share.png" alt="" width={21} />
                 </li>
               </ul>
             </div>
