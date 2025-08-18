@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SongsList from "./SongsList";
+import SearchLogo from '../assets/search-icon.png';
 
 const Sidebar = ({ activeTab, setActiveTab, songs, setCurrentSong }) => {
   const [search, setSearch] = useState("");
@@ -33,8 +34,8 @@ const Sidebar = ({ activeTab, setActiveTab, songs, setCurrentSong }) => {
 
       <div className="relative">
         <img
-          src="src\assets\search-icon.png"
-          alt=""
+          src={SearchLogo}
+          alt="Search"
           className="absolute right-4 w-7 h-7 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
         />
         <input

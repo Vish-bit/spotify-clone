@@ -1,4 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
+import MoreOptions from '../assets/more-options.svg';
+import MuteIcon from '../assets/mute.png';
+import VolumeIcon from '../assets/volume.svg';
+import SkipBackIcon from '../assets/skipback.svg';
+import SkipForwardIcon from '../assets/skipforward.svg';
+import PlayIcon from '../assets/play.svg';
+import PauseIcon from '../assets/pause.svg';
+import HeartIcon from '../assets/heart.png';
+import ShareIcon from '../assets/share.png';
+import DownloadIcon from '../assets/download.png';
 
 const Player = ({ currentSong, songs, setCurrentSong }) => {
   const audioRef = useRef(null);
@@ -117,20 +127,20 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
             onClick={() => setOpen(!open)}
             className="cursor-pointer focus:outline-none focus-visible:outline-none"
           >
-            <img src="src\assets\more-options.svg" alt="More" className="" />
+            <img src={MoreOptions} alt="More"/>
           </button>
 
           {open && (
             <div className="absolute right-14 bottom-3 mt-2 w-15 bg-white/10 text-white rounded-lg shadow-lg">
               <ul className="flex flex-col">
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  <img src="src\assets\heart.png" alt=""  width={24} />
+                  <img src={HeartIcon} alt="Heart"  width={24} />
                 </li>
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  <img src="src\assets\download.png" alt="" width={24} />
+                  <img src={DownloadIcon} alt="" width={24} />
                 </li>
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  <img src="src\assets\share.png" alt="" width={21} />
+                  <img src={ShareIcon} alt="" width={21} />
                 </li>
               </ul>
             </div>
@@ -140,7 +150,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
         <div className="flex items-center w-1/3 justify-between">
           <button className="cursor-pointer focus:outline-none focus-visible:outline-none">
             <img
-              src="src\assets\skipback.svg"
+              src={SkipBackIcon}
               alt="Skip Back"
               onClick={skipBackward}
             />
@@ -152,18 +162,18 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           >
             {isPlaying ? (
               <img
-                src="src/assets/pause.svg"
+                src={PauseIcon}
                 alt="Pause"
                 className="w-12 h-12"
               />
             ) : (
-              <img src="src/assets/play.svg" alt="Play" className="w-12 h-12" />
+              <img src={PauseIcon} alt="Play" className="w-12 h-12" />
             )}
           </button>
 
           <button className="cursor-pointer focus:outline-none focus-visible:outline-none">
             <img
-              src="src/assets/skipforward.svg"
+              src={SkipForwardIcon}
               alt="Skip Forward"
               onClick={skipForward}
             />
@@ -180,7 +190,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
                 <img src="src/assets/mute.png" alt="Volume" width={24.1} />
               </div>
             ) : (
-              <img src="src/assets/volume.svg" alt="Volume" />
+              <img src={VolumeIcon} alt="Volume" />
             )}
           </button>
         </div>
