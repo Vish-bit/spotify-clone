@@ -95,7 +95,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
       <img
         src={`https://cms.samespace.com/assets/${currentSong.cover}`}
         alt={currentSong.name}
-        className="w-100 h-100 rounded-lg shadow-xl mb-6 object-cover"
+        className="w-full max-h-[420px] aspect-[2/3] rounded-lg shadow-xl mb-6 object-cover"
       />
 
       {/* <input
@@ -167,7 +167,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
                 className="w-12 h-12"
               />
             ) : (
-              <img src={PauseIcon} alt="Play" className="w-12 h-12" />
+              <img src={PlayIcon} alt="Play" className="w-12 h-12" />
             )}
           </button>
 
@@ -187,7 +187,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           >
             {volume === 0 ? (
               <div className="bg-white/10 p-3 rounded-full">
-                <img src="src/assets/mute.png" alt="Volume" width={24.1} />
+                <img src={MuteIcon} alt="Volume" width={24.1} />
               </div>
             ) : (
               <img src={VolumeIcon} alt="Volume" />
