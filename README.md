@@ -17,3 +17,10 @@ A modern and responsive music player web application built with React.js and Tai
 * React.js for building the user interface
 * Tailwind CSS for styling
 * Vite as the build tool
+
+## Snapshots
+
+![Screenshot 1](./Screenshots/screenshot-1.png)
+![Screenshot 2](./Screenshots/screenshot-2.png)
+![Screenshot 3](./Screenshots/screenshot-3.png)
+
