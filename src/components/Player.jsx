@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import MoreOptions from '../assets/more-options.svg';
-import MuteIcon from '../assets/mute.png';
-import VolumeIcon from '../assets/volume.svg';
-import SkipBackIcon from '../assets/skipback.svg';
-import SkipForwardIcon from '../assets/skipforward.svg';
-import PlayIcon from '../assets/play.svg';
-import PauseIcon from '../assets/pause.svg';
-import HeartIcon from '../assets/heart.png';
-import ShareIcon from '../assets/share.png';
-import DownloadIcon from '../assets/download.png';
+import MoreOptions from "../assets/more-options.svg";
+import MuteIcon from "../assets/mute.png";
+import VolumeIcon from "../assets/volume.svg";
+import SkipBackIcon from "../assets/skipback.svg";
+import SkipForwardIcon from "../assets/skipforward.svg";
+import PlayIcon from "../assets/play.svg";
+import PauseIcon from "../assets/pause.svg";
+import HeartIcon from "../assets/heart.png";
+import ShareIcon from "../assets/share.png";
+import DownloadIcon from "../assets/download.png";
 
 const Player = ({ currentSong, songs, setCurrentSong }) => {
   const audioRef = useRef(null);
@@ -98,13 +98,6 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
         className="w-full max-h-[420px] aspect-[2/3] rounded-lg shadow-xl mb-6 object-cover"
       />
 
-      {/* <input
-        type="range"
-        value={progress}
-        onChange={handleSeek}
-        className="w-full accent-white cursor-pointer no-thumb"
-      /> */}
-
       <div
         className="w-full h-2 bg-gray-600 rounded-lg cursor-pointer relative"
         onClick={(e) => {
@@ -114,27 +107,26 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           handleSeek({ target: { value: newProgress * 100 } }); // simulate range change
         }}
       >
-        {/* Filled part */}
         <div
           className="h-2 bg-white rounded-lg"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
 
-      <div className="flex items-center justify-between w-full mt-8 ">
+      <div className="flex items-center justify-between w-full mt-8 gap-2">
         <div className="relative">
           <button
             onClick={() => setOpen(!open)}
             className="cursor-pointer focus:outline-none focus-visible:outline-none"
           >
-            <img src={MoreOptions} alt="More"/>
+            <img src={MoreOptions} alt="More" />
           </button>
 
           {open && (
             <div className="absolute right-14 bottom-3 mt-2 w-15 bg-white/10 text-white rounded-lg shadow-lg">
               <ul className="flex flex-col">
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
-                  <img src={HeartIcon} alt="Heart"  width={24} />
+                  <img src={HeartIcon} alt="Heart" width={24} />
                 </li>
                 <li className="px-4 py-2 hover:bg-white/10 hover:rounded-lg cursor-pointer">
                   <img src={DownloadIcon} alt="" width={24} />
@@ -147,13 +139,9 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           )}
         </div>
 
-        <div className="flex items-center w-1/3 justify-between">
+        <div className="flex items-center gap-3 justify-between">
           <button className="cursor-pointer focus:outline-none focus-visible:outline-none">
-            <img
-              src={SkipBackIcon}
-              alt="Skip Back"
-              onClick={skipBackward}
-            />
+            <img src={SkipBackIcon} alt="Skip Back" onClick={skipBackward} />
           </button>
 
           <button
@@ -161,11 +149,7 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
             className="shadow-lg cursor-pointer focus:outline-none focus-visible:outline-none"
           >
             {isPlaying ? (
-              <img
-                src={PauseIcon}
-                alt="Pause"
-                className="w-12 h-12"
-              />
+              <img src={PauseIcon} alt="Pause" className="w-12 h-12" />
             ) : (
               <img src={PlayIcon} alt="Play" className="w-12 h-12" />
             )}
@@ -180,20 +164,18 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           </button>
         </div>
 
-        <div className="relative">
-          <button
-            onClick={handleVolumeChange}
-            className="text-2xl cursor-pointer focus:outline-none focus-visible:outline-none"
-          >
-            {volume === 0 ? (
-              <div className="bg-white/10 p-3 rounded-full">
-                <img src={MuteIcon} alt="Volume" width={24.1} />
-              </div>
-            ) : (
-              <img src={VolumeIcon} alt="Volume" />
-            )}
-          </button>
-        </div>
+        <button
+          onClick={handleVolumeChange}
+          className="text-2xl cursor-pointer focus:outline-none focus-visible:outline-none"
+        >
+          {volume === 0 ? (
+            <div className="bg-white/10 p-3 rounded-full">
+              <img src={MuteIcon} alt="Volume" width={24.1} />
+            </div>
+          ) : (
+            <img src={VolumeIcon} alt="Volume" />
+          )}
+        </button>
       </div>
 
       <audio
