@@ -164,18 +164,20 @@ const Player = ({ currentSong, songs, setCurrentSong }) => {
           </button>
         </div>
 
-        <button
-          onClick={handleVolumeChange}
-          className="text-2xl cursor-pointer focus:outline-none focus-visible:outline-none"
-        >
-          {volume === 0 ? (
-            <div className="bg-white/10 p-3 rounded-full">
-              <img src={MuteIcon} alt="Volume" width={24.1} />
-            </div>
-          ) : (
-            <img src={VolumeIcon} alt="Volume" />
-          )}
-        </button>
+        <div className="relative">
+          <button
+            onClick={handleVolumeChange}
+            className="text-2xl cursor-pointer focus:outline-none focus-visible:outline-none"
+          >
+            {volume === 0 ? (
+              <div className="bg-white/10 p-3 rounded-full">
+                <img src={MuteIcon} alt="Volume" width={24.1} />
+              </div>
+            ) : (
+              <img src={VolumeIcon} alt="Volume" />
+            )}
+          </button>
+        </div>
       </div>
 
       <audio
