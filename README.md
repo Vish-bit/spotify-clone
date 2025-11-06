@@ -1,4 +1,4 @@
-#🎵🎵🎵 Spotify Music Player Clone
+#🎵🎵 Spotify Music Player Clone
 
 A modern and responsive music player web application built with React.js and Tailwind CSS. The project focuses on delivering a clean and user-friendly interface inspired by streaming platforms.
 
